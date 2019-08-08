@@ -6,7 +6,10 @@ services:
     build: .
     ports:
       - '3000:3000' # puerto en mi pc : puerto en el contenedor
-    links: # para que mi app se conecte con el servicio de la base de datos
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on: # para que mi app se conecte con el servicio de la base de datos
       - mongo
   mongo:
     container_name: mongo

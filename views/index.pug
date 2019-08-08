@@ -1,4 +1,10 @@
 extends layout
 
 block content
-  h1 Welcome!
+  h1 Bienvenido!
+  form(action='/name' method='post')
+    .form-group
+      label(for='username') Nombre
+      input.form-control(type='text', name='username' placeholder='Usuario' autofocus=true) 
+      button.btn.btn-primary(type='submit') Entra!!
+  
