@@ -12,7 +12,17 @@ router.route('/add').post((req,res)=>{
 
     newUser.save()
         .then(users=>{
+
             console.log('User added!')
+        })
+        .catch(err=>res.status(400).json('Error: '+ err))
+})
+
+router.route('/').get((req,res)=>{
+
+    User.find()
+        .then(users=>{
+            res.json(users)
         })
         .catch(err=>res.status(400).json('Error: '+ err))
 })
