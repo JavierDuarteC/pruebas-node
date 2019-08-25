@@ -1,5 +1,12 @@
 version: '3'
 services:
+  mongo:
+    container_name: mongo
+    image: mongo # imagen oficial de mongo
+    expose:
+      - '27017'
+    ports:
+      - '27017:27017'
   app: 
     container_name: pruebas-node
     restart: always
@@ -11,10 +18,3 @@ services:
       - /usr/src/app/node_modules
     depends_on: # para que mi app se conecte con el servicio de la base de datos
       - mongo
-  mongo:
-    container_name: mongo
-    image: mongo # imagen oficial de mongo
-    expose:
-      - '27017'
-    ports:
-      - '27017:27017'

@@ -1,6 +1,6 @@
 const express = require('express');
 
-var homeController = {};
+let homeController = {};
 
 homeController.show = function (req, res) {
     res.render('../views/index');
