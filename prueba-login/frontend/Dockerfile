@@ -14,8 +14,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN npm install -g nodemon
-
 EXPOSE 3000
 
-CMD [ "nodemon", "server" ]
+CMD [ "npm", "start" ]
