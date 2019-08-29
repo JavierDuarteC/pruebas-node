@@ -24,14 +24,14 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
     />
 )
 
-export function verifyToken() {
+export async function verifyToken() {
 
-    const obj = getFromStorage('the_main_app')
+    const obj = await getFromStorage('the_main_app')
 
     if (obj && obj.token) {
         const { token } = obj
         //verify token
-        axios.get('http://localhost:5000/auth/verify?token=' + token)
+        await axios.get('http://localhost:5000/auth/verify?token=' + token)
             .then(res => {
                 if (res.data.success) {
                     console.log("Valid token")
