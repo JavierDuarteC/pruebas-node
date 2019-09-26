@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap'
+import React, {Component} from 'react';
 import './login.css';
-import {
-    getFromStorage,
-    setInStorage
-} from '../../Utils/storage'
+import {getFromStorage, setInStorage} from '../../Utils/storage'
+
+import {Button} from 'react-bootstrap';
 import axios from 'axios'
 
 export default class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             isLoading: true,
-            singnOutError: ''
-        }
+            signOutError: ''
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onSingOut = this.onSingOut.bind(this);
@@ -23,29 +21,28 @@ export default class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-    }
+    };
 
     onSingOut() {
 
         const obj = getFromStorage('the_main_app')
 
         if (obj && obj.token) {
-            const { token } = obj
-
+            const {token} = obj;
             axios.get('http://localhost:5000/auth/logout?token=' + token)
                 .then(res => {
 
                     this.setState({
-                        singnOutError: res.data.message,
+                        signOutError: res.data.message,
                         isLoading: false
-                    })
+                    });
                     setInStorage('the_main_app', {})
                     window.location = "/"
 
                 })
                 .catch(err => {
                     this.setState({
-                        singnOutError: err.toString(),
+                        signOutError: err.toString(),
                     })
                 })
 
@@ -58,7 +55,8 @@ export default class Login extends Component {
         return (
             <div className="Login">
                 {
-                    (this.state.singnOutError) ? (<div className="text-danger"><p>{this.state.singnOutError}</p></div>) : (null)
+                    (this.state.signOutError) ? (
+                        <div className="text-danger"><p>{this.state.signOutError}</p></div>) : (null)
                 }
                 <form onSubmit={this.handleSubmit}>
                     <Button

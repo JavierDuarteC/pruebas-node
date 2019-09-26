@@ -1,6 +1,6 @@
-const router = require('express').Router()
-let User = require('../models/users')
-let Session = require('../models/session')
+const router = require('express').Router();
+let User = require('../models/users');
+let Session = require('../models/session');
 
 router.route('/users').get((req, res) => {
 
@@ -9,7 +9,7 @@ router.route('/users').get((req, res) => {
             res.json(users)
         })
         .catch(err => res.status(400).json('Error: ' + err))
-})
+});
 
 router.route('/sessions').get((req, res) => {
 
@@ -18,7 +18,7 @@ router.route('/sessions').get((req, res) => {
             res.json(sessions)
         })
         .catch(err => res.status(400).json('Error: ' + err))
-})
+});
 
 router.route('/add').post((req, res) => {
     let username = req.body.username
@@ -75,10 +75,11 @@ router.route('/add').post((req, res) => {
                 message: 'Error: ' + err
             })
         })
-})
+});
 
 router.route('/login').post((req, res) => {
-    let { username, password } = req.body
+    let username = req.body.username;
+    let password = req.body.password;
 
     if (!username) {
         return res.send({
@@ -94,14 +95,14 @@ router.route('/login').post((req, res) => {
         })
     }
 
-    username = username.toLowerCase()
+    username = username.toLowerCase();
 
     User.find({
         username: username
     })
         .then(users => {
 
-            if (users.length == 0) {
+            if (users.length === 0) {
                 return res.send({
                     success: false,
                     message: 'Error: usuario no encontrado'
@@ -126,14 +127,14 @@ router.route('/login').post((req, res) => {
                                 success: false,
                                 message: 'Error: Invalid Session.'
                             })
-                        } else if (sessions.length == 1) {
+                        } else if (sessions.length === 1) {
                             return res.send({
                                 success: true,
                                 message: 'Valid Login.',
                                 token: sessions[0]._id
                             })
                         } else {
-                            const newSession = new Session()
+                            const newSession = new Session();
                             newSession.userId = users[0]._id
                             newSession.save()
                                 .then((doc) => {
@@ -170,7 +171,7 @@ router.route('/login').post((req, res) => {
                 message: 'Error: ' + err
             })
         })
-})
+});
 
 router.route('/verify').get((req, res) => {
     const { query } = req
@@ -181,7 +182,7 @@ router.route('/verify').get((req, res) => {
         isDeleted: false
     })
         .then((sessions) => {
-            if (sessions.length != 1) {
+            if (sessions.length !== 1) {
                 return res.send({
                     success: false,
                     message: 'Error: Invalid Token.'
@@ -194,7 +195,7 @@ router.route('/verify').get((req, res) => {
             })
         })
         .catch(err => res.status(400).json('Error: ' + err))
-})
+});
 
 router.route('/logout').get((req, res) => {
     const { query } = req
@@ -215,6 +216,6 @@ router.route('/logout').get((req, res) => {
             })
         })
         .catch(err => res.status(400).json('Error: ' + err))
-})
+});
 
-module.exports = router
+module.exports = router;

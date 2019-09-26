@@ -1,26 +1,23 @@
-import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap'
+import React, {Component} from 'react';
 import './login.css';
-import {
-    //getFromStorage,
-    setInStorage
-} from '../../Utils/storage'
-import axios from 'axios'
+import {setInStorage} from '../../Utils/storage'
+import {Button, FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import axios from 'axios';
 
 export default class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             username: '',
             password: '',
-            singnInError: ''
-        }
+            signInError: ''
+        };
 
         this.validateForm = this.validateForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onSingIn = this.onSingIn.bind(this);
+        this.onSignIn = this.onSignIn.bind(this);
 
     }
 
@@ -32,34 +29,34 @@ export default class Login extends Component {
         this.setState({
             [event.target.id]: event.target.value
         })
-    }
+    };
 
     handleSubmit = event => {
         event.preventDefault()
-    }
+    };
 
-    onSingIn() {
+    onSignIn() {
         //Grab state and post request to backend
         const userLogin = {
             username: this.state.username,
             password: this.state.password
-        }
+        };
 
-        axios.post('http://localhost:5000/auth/login',userLogin)
-        .then(res=>{
-            this.setState({
-                singnInError: res.data.message,
+        axios.post('http://localhost:5000/logIn', userLogin)
+            .then(res => {
+                this.setState({
+                    signInError: res.data.message,
+                });
+                if (res.data.success) {
+                    setInStorage('the_main_app', {token: res.data.token});
+                    window.location = "/"
+                }
             })
-            if(res.data.success){
-                setInStorage('the_main_app', {token: res.data.token})
-                window.location = "/"
-            }
-        })
-        .catch(err=>{
-            this.setState({
-                singnInError: err.toString(),
+            .catch(err => {
+                this.setState({
+                    signInError: err.toString(),
+                })
             })
-        })
     }
 
     render() {
@@ -67,7 +64,8 @@ export default class Login extends Component {
             <div className="Login">
                 <br/>
                 {
-                    (this.state.singnInError) ? (<div className="text-danger"><p>{this.state.singnInError}</p></div>) : (null)
+                    (this.state.signInError) ? (
+                        <div className="text-danger"><p>{this.state.signInError}</p></div>) : null
                 }
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup controlId="username" bssize="large">
@@ -96,11 +94,11 @@ export default class Login extends Component {
                         bssize="large"
                         disabled={!this.validateForm}
                         type="submit"
-                        onClick={this.onSingIn}>
+                        onClick={this.onSignIn}>
                         Login
                     </Button>
                 </form>
             </div>
-        )
+        );
     }
 }
