@@ -1,4 +1,4 @@
-node {
+pipeline {
 	agent any
 	stages {
 		stage('Build') {
@@ -9,7 +9,7 @@ node {
 					ls
 					docker -v
 					docker-compose -v
-					docker-compose build
+					sudo docker-compose build
 				'''
 			}
 		}
