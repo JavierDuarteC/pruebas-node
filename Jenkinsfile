@@ -5,7 +5,7 @@ pipeline {
 			steps {
 				sh '''
 					pwd
-					cd ~/pruebas-node/prueba-login/
+					cd /home/ubuntu/pruebas-node/prueba-login/
 					docker-compose build
 				'''
 			}
@@ -13,7 +13,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				sh '''
-					cd ~/pruebas-node/prueba-login/
+					cd /home/ubuntu/pruebas-node/prueba-login/
 					sudo docker-compose up
 				'''
 			}
