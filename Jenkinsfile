@@ -6,6 +6,7 @@ pipeline {
 				sh '''
 					ls
 					cd prueba-login/
+					ls
 					docker-compose build
 				'''
 			}
