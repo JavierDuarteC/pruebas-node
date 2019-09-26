@@ -3,12 +3,18 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				sh 'docker-compose build'
+				sh '''
+					cd ..
+					docker-compose build
+				'''
 			}
 		}
 		stage('Deploy') {
 			steps {
-				sh 'docker-compose up'
+				sh '''
+					cd ..
+					docker-compose up
+				'''
 			}
 		}
 	}
