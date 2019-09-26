@@ -7,7 +7,8 @@ pipeline {
 					ls
 					cd prueba-login/
 					ls
-					sudo docker-compose build
+					docker -v
+					docker-compose build
 				'''
 			}
 		}
