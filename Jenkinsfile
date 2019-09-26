@@ -5,6 +5,7 @@ pipeline {
 			steps {
 				sh '''
 					ls
+					cd prueba-login/
 					docker-compose build
 				'''
 			}
