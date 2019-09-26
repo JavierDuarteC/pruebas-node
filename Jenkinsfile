@@ -5,15 +5,15 @@ pipeline {
 			steps {
 				sh '''
 					pwd
-					cd prueba-login/
-					sudo docker-compose build
+					cd ~/pruebas-node/prueba-login/
+					docker-compose build
 				'''
 			}
 		}
 		stage('Deploy') {
 			steps {
 				sh '''
-					cd prueba-login/
+					cd ~/pruebas-node/prueba-login/
 					sudo docker-compose up
 				'''
 			}
