@@ -4,16 +4,16 @@ pipeline {
 		stage('Build') {
 			steps {
 				sh '''
-					cd ..
-					docker-compose build
+					cd prueba-login/
+					sudo docker-compose build
 				'''
 			}
 		}
 		stage('Deploy') {
 			steps {
 				sh '''
-					cd ..
-					docker-compose up
+					cd prueba-login/
+					sudo docker-compose up
 				'''
 			}
 		}
