@@ -1,16 +1,10 @@
 pipeline {
-	agent {
-		docker {
-			image 'docker-compose:latest'
-		}
+	agent any
 	stages {
 		stage('Build') {
 			steps {
 				sh '''
-					ls
 					cd prueba-login/
-					ls
-					docker -v
 					docker-compose -v
 					sudo docker-compose build
 				'''
