@@ -6,8 +6,7 @@ pipeline {
 				sh '''
 					cd prueba-login/
 					docker-compose -v
-					sudo su
-					docker-compose build
+					sudo docker-compose build
 				'''
 			}
 		}
