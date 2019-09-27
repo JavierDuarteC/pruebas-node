@@ -1,9 +1,5 @@
 pipeline {
-	agent {
-		docker {
-			image 'dduportal/docker-compose:latest'
-		}
-	}
+	agent any
 	stages {
 		stage('Build') {
 			steps {
